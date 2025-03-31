@@ -6,12 +6,12 @@ const NewsItem = (props) => {
     useEffect(() => {
         const fetchData = async () => {
             if (props.category ==null) {
-                const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.API_KEY}&pagesize=${props.pageSize}`;
+                const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.REACT_APP_VERCEL_API_KEY}&pagesize=${props.pageSize}`;
                 let dat = await fetch(url);
                 let jsonData = await dat.json();
                 setdata(jsonData.articles);
             } else {
-                const url = `https://newsapi.org/v2/top-headlines?country=us&category=${props.category}&apiKey=${process.env.API_KEY}&pagesize=${props.pageSize}`;
+                const url = `https://newsapi.org/v2/top-headlines?country=us&category=${props.category}&apiKey=${process.env.REACT_APP_VERCEL_API_KEY}&pagesize=${props.pageSize}`;
                 let dat = await fetch(url);
                 let jsonData = await dat.json();
                 setdata(jsonData.articles);
