@@ -8,12 +8,12 @@ const Middle = (props) => {
         let { category, pageSize } = props;
         async function fetchData() {
             if (props.category === null) {
-                const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}&pagesize=${pageSize}`;
+                const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.API_KEY}&pagesize=${pageSize}`;
                 let dat = await fetch(url);
                 let jsonData = await dat.json();
                 setdata(jsonData.articles);
             } else {
-                const url = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}&pagesize=${pageSize}`;
+                const url = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${process.env.API_KEY}&pagesize=${pageSize}`;
                 let dat = await fetch(url);
                 let jsonData = await dat.json();
                 setdata(jsonData.articles);
