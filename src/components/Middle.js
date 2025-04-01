@@ -9,16 +9,12 @@ const Middle = (props) => {
         async function fetchData() {
             if (props.category === null) {
                 const url = `https://thingproxy.freeboard.io/fetch/https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.REACT_APP_VERCEL_API_KEY}&pagesize=${pageSize}`;
-                let dat = await fetch(url, {
-  mode: "no-cors"
-});
+                let dat = await fetch(url);
                 let jsonData = await dat.json();
                 setdata(jsonData.articles);
             } else {
                 const url = `https://thingproxy.freeboard.io/fetch/https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${process.env.REACT_APP_VERCEL_API_KEY}&pagesize=${pageSize}`;
-                let dat = await fetch(url,{
-                    mode: "no-cors"
-                });
+                let dat = await fetch(url);
                 let jsonData = await dat.json();
                 setdata(jsonData.articles);
             }
