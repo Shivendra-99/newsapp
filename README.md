@@ -1,16 +1,20 @@
-# News App
- 
- Its a <b>React.js</b> project and <b>Bootstrap</b> used for designing webpage.For news Used <b>NEWS API</b>
+# News World
 
-## Library are used in the app
-- Navbar
-- Card
-- Router
-# Screenshot
+A React news reader with category browsing, an editorial-magazine layout, and dark mode. Built with **Vite + React 18**, styled with **Tailwind CSS v4**, and powered by the [Currents API](https://currentsapi.services) for live headlines.
 
-<img src="https://i.imgur.com/lD6AvAz.png" width="880" hight="418"> 
-<img src="https://i.imgur.com/g8PmEtZ.png" width="880" height="418">
+## Features
 
-## After Clicking ReadMore
+- Browse headlines by category: Business, Entertainment, General, Health, Science, Sports, Technology
+- Featured hero story + "Latest News" grid, both fetched live per category/country
+- Light/dark mode — follows your system preference by default, with a manual toggle that's remembered across visits
+- Responsive layout with a mobile nav menu
+- Loading skeletons and an empty state if a category returns no results
 
-<img src="https://i.imgur.com/VHaLRSY.png" width="880" height="418">
+## Tech stack
+
+- [Vite](https://vitejs.dev) + React 18
+- [Tailwind CSS v4](https://tailwindcss.com) (`@tailwindcss/vite`, no separate config file)
+- [react-router-dom](https://reactrouter.com) v6
+- [Currents API](https://currentsapi.services) for news data
+- [Phosphor Icons](https://phosphoricons.com) (`@phosphor-icons/react`)
+- [Vitest](https://vitest.dev) + Testing Library for tests
