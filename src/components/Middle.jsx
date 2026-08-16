@@ -2,21 +2,21 @@ import Banner from "./Banner";
 import { useTopHeadlines } from "../hooks/useTopHeadlines";
 
 const HeroSkeleton = () => (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className="aspect-video animate-pulse rounded-2xl bg-muted sm:col-span-2 sm:aspect-[16/8]" />
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <div className="aspect-video animate-pulse bg-muted sm:col-span-2 sm:aspect-[16/8]" />
         <div className="flex flex-col gap-3">
             <div className="flex gap-3">
-                <div className="h-16 w-16 shrink-0 animate-pulse rounded-lg bg-muted" />
+                <div className="h-16 w-16 shrink-0 animate-pulse bg-muted" />
                 <div className="flex-1 space-y-2 py-1">
-                    <div className="h-3 w-full animate-pulse rounded bg-muted" />
-                    <div className="h-3 w-2/3 animate-pulse rounded bg-muted" />
+                    <div className="h-3 w-full animate-pulse bg-muted" />
+                    <div className="h-3 w-2/3 animate-pulse bg-muted" />
                 </div>
             </div>
             <div className="flex gap-3">
-                <div className="h-16 w-16 shrink-0 animate-pulse rounded-lg bg-muted" />
+                <div className="h-16 w-16 shrink-0 animate-pulse bg-muted" />
                 <div className="flex-1 space-y-2 py-1">
-                    <div className="h-3 w-full animate-pulse rounded bg-muted" />
-                    <div className="h-3 w-1/2 animate-pulse rounded bg-muted" />
+                    <div className="h-3 w-full animate-pulse bg-muted" />
+                    <div className="h-3 w-1/2 animate-pulse bg-muted" />
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@ const Middle = (props) => {
 
     return (
         <section className="mx-auto max-w-6xl px-4 pt-6 sm:px-6">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
                 <div className="sm:col-span-2">
                     <Banner
                         variant="large"
@@ -59,7 +59,7 @@ const Middle = (props) => {
                     />
                 </div>
                 {sideStories.length > 0 && (
-                    <div className="flex flex-col justify-center gap-1">
+                    <div className="flex flex-col justify-center">
                         {sideStories.map((article) => (
                             <Banner
                                 key={article.url}

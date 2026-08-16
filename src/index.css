@@ -16,10 +16,41 @@
   --font-body: 'Roboto', ui-sans-serif, system-ui, sans-serif;
 }
 
+/* Dark palette: applied when the user's OS prefers dark and no explicit
+   choice has been saved, or forced via .dark on <html> (see useTheme.js).
+   Desaturated/lighter tonal variants rather than a straight inversion. */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --color-primary: #F87171;
+    --color-primary-foreground: #1C0A0A;
+    --color-accent: #93C5FD;
+    --color-background: #16110F;
+    --color-surface: #211A17;
+    --color-foreground: #F5EEEA;
+    --color-muted: #2B2320;
+    --color-muted-foreground: #B8ADA6;
+    --color-border: #3A2E29;
+  }
+}
+
+.dark {
+  --color-primary: #F87171;
+  --color-primary-foreground: #1C0A0A;
+  --color-accent: #93C5FD;
+  --color-background: #16110F;
+  --color-surface: #211A17;
+  --color-foreground: #F5EEEA;
+  --color-muted: #2B2320;
+  --color-muted-foreground: #B8ADA6;
+  --color-border: #3A2E29;
+}
+
 body {
   margin: 0;
   font-family: var(--font-body);
   background-color: var(--color-background);
+  color: var(--color-foreground);
+  transition: background-color 200ms ease, color 200ms ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
