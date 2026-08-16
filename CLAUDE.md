@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project overview
 
-"News World" — a Vite + React 18 news reader (migrated from Create React App; `react-scripts` is gone). Bootstrap 5 (loaded via CDN `<link>`/`<script>` tags in [index.html](index.html), not npm) provides styling/JS components (navbar, carousel, cards). Routing is `react-router-dom` v6. The app is wired to NewsAPI (newsapi.org).
+"News World" — a Vite + React 18 news reader (migrated from Create React App; `react-scripts` is gone). Styling is Tailwind CSS v4 (via `@tailwindcss/vite`, no Bootstrap); icons are `@phosphor-icons/react`. Routing is `react-router-dom` v6. The app is wired to Currents API (currentsapi.services), via its `/v1/search` endpoint.
 
 ## Commands
 
@@ -23,9 +23,13 @@ Entry point is [index.html](index.html) at the repo root (not in `public/`, per 
 Routing lives entirely in [src/App.jsx](src/App.jsx): one `<Route>` per news category (business, entertainment, general, health, science, sports, technology) plus `/`. Each route renders the *same pair* of components inline — `<Middle .../> <NewsItem .../>` — parameterized by `category` (or `null` for home) and `country="in"`. There's no shared layout/route wrapper component; adding a category means adding another `<Route>` block by hand in App.jsx.
 
 Data flow:
-- [src/components/Middle.jsx](src/components/Middle.jsx) — top carousel/banner (Bootstrap `.carousel`), fetches from NewsAPI's `top-headlines/sources` endpoint in a `useEffect` and maps articles to [src/components/Banner.js](src/components/Banner.js). **Note:** this fetch currently has a NewsAPI key hardcoded directly in the URL string — this should be moved to an env var (Vite exposes `import.meta.env.VITE_*` vars from `.env`/`.env.local`, e.g. `VITE_NEWS_API_KEY`) rather than committed to source.
-- [src/components/NewsItem.jsx](src/components/NewsItem.jsx) — the list of article cards below the carousel, maps fetched articles to [src/components/CardData.jsx](src/components/CardData.jsx). Its own fetch call is currently commented out, so this list renders empty.
-- [src/components/Navbar.jsx](src/components/Navbar.jsx) — static nav with `<Link>`s to each category route.
+- [src/api/newsApi.js](src/api/newsApi.js) — the only place that talks to Currents API. Builds `GET /v1/search?country=..&category=..` requests (`Authorization` header carries the key), maps the response's `news[]` items into a NewsAPI-shaped `{title, description, url, urlToImage, publishedAt, source: {name}}` article so downstream components don't care which provider is behind them. If a country+category combo comes back empty it retries once without the country filter.
+- [src/hooks/useTopHeadlines.js](src/hooks/useTopHeadlines.js) — thin `useEffect`-based hook wrapping `fetchTopHeadlines`, returns `{articles, loading, usedCountry}`. Both fetching components below call this instead of fetching directly.
+- [src/components/Middle.jsx](src/components/Middle.jsx) — hero section (one large "featured" story + up to two smaller side stories), built from [src/components/Banner.jsx](src/components/Banner.jsx) (`variant="large" | "small"`).
+- [src/components/NewsItem.jsx](src/components/NewsItem.jsx) — the "Latest News" card grid below the hero, maps fetched articles to [src/components/CardData.jsx](src/components/CardData.jsx).
+- [src/components/Navbar.jsx](src/components/Navbar.jsx) — sticky nav with `<NavLink>`s per category route and its own mobile-menu toggle state (no Bootstrap JS involved).
+
+The API key is read from `import.meta.env.VITE_CURRENTS_API_KEY` (Vite exposes `import.meta.env.VITE_*` vars from `.env`/`.env.local`, gitignored — see `.env.example` for the placeholder). Never hardcode a key in source.
 
 Each route mounts its own `Middle`/`NewsItem` pair rather than sharing state, so category switching is done via full remount (note the `key` props in App.jsx), not client-side data refetch/caching.
 
